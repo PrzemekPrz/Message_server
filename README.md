@@ -10,4 +10,4 @@ Project consists of parts:
 	(listing all messages sent to the user,
 	sending a message)
 # Message_server
-# Messaging_server
+
