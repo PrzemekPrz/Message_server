@@ -17,6 +17,17 @@ parser.add_argument("-e", "--edit", help="edit user", action="store_true")
 
 args = parser.parse_args()
 
+def create_user(cur, username, password):
+    if len(password) < 8:
+        print("Password is tho short. It should have minimum 8 characters.")
+    else:
+        try:
+            user = User(username=username, password=password)
+            user.save_to_db(cur)
+            print("User created")
+        except UniqueViolation as e:
+            print("User already exist. ", e)
+
 
 def edit_user(cur, username, password, new_pass):
     user = User.load_user_by_username(cur, username)
@@ -44,22 +55,14 @@ def delete_user(cur, username, password):
         print("Incorrect password!")
 
 
-def create_user(cur, username, password):
-    if len(password) < 8:
-        print("Password is tho short. It should have minimum 8 characters.")
-    else:
-        try:
-            user = User(username=username, password=password)
-            user.save_to_db(cur)
-            print("User created")
-        except UniqueViolation as e:
-            print("User already exist. ", e)
-
-
 def list_users(cur):
     users = User.load_all_users(cur)
     for user in users:
         print(user.username)
+
+
+def help():
+    parser.print_help()
 
 
 if __name__ == '__main__':

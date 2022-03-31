@@ -37,6 +37,10 @@ def send_message(cur, from_id, recipient_name, text):
         print("Recipient does not exists.")
 
 
+def help():
+    parser.print_help()
+
+
 if __name__ == '__main__':
     try:
         cnx = connect(database="workshop", user="postgres", password="coderslab", host="127.0.0.1")
